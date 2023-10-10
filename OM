@@ -1,0 +1,140 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+int main() {
+    srand(time(0));
+
+    int fil1, col1, fil2, col2;
+    int matriz1[10][10], matriz2[10][10], res[10][10];
+
+    printf("Ingrese la cantidad de filas de la primera matriz: ");
+    scanf("%d", &fil1);
+
+    printf("Ingrese la cantidad de columnas de la primera matriz: ");
+    scanf("%d", &col1);
+	
+	printf("Matriz 1 :\n");
+    for (int i = 0; i < fil1; ++i) {
+        for (int j = 0; j < col1; ++j) {
+            matriz1[i][j] = rand() % 9; 
+            printf("%d ", matriz1[i][j]);
+        }
+        printf("\n");
+    }
+
+    printf("Ingrese la cantidad de filas de la segunda matriz: ");
+    scanf("%d", &fil2);
+
+    printf("Ingrese la cantidad de columnas de la segunda matriz: ");
+    scanf("%d", &col2);
+
+    printf("Matriz 2 :\n");
+    for (int i = 0; i < fil2; ++i) {
+        for (int j = 0; j < col2; ++j) {
+            matriz2[i][j] = rand() % 9; 
+            printf("%d ", matriz2[i][j]);
+        }
+        printf("\n");
+    }
+
+    int o;
+    printf("Seleccione una operacion:\n");
+    printf("1. Suma\n");
+    printf("2. Resta\n");
+    printf("3. Multiplicacion\n");
+    printf("4. Suma de la Diagonal (Matriz 1)\n");
+    printf("5. Suma triangular superior (Matriz 1)\n");
+    printf("6. Terminar el programa\n");
+    scanf("%d", &o);
+
+    switch(o) {
+        case 1:
+            
+            if (fil1 == fil2 && col1 == col2) {
+                for(int i = 0; i < fil1; ++i) {
+                    for(int j = 0; j < col1; ++j) {
+                        res[i][j] = matriz1[i][j] + matriz2[i][j];
+                    }
+                }
+                printf("Resultado de la suma:\n");
+            } else {
+                printf("Las matrices no tienen dimensiones validas para la suma.\n");
+            }
+            break;
+
+        case 2:
+            
+            if (fil1 == fil2 && col1 == col2) {
+                for(int i = 0; i < fil1; ++i) {
+                    for(int j = 0; j < col1; ++j) {
+                        res[i][j] = matriz1[i][j] - matriz2[i][j];
+                    }
+                }
+                printf("Resultado de la resta:\n");
+            } else {
+                printf("Las matrices no tienen dimensiones validas para la resta.\n");
+            }
+            break;
+
+        case 3:
+            
+            if (col1 == fil2) {
+                printf("\nLas matrices pueden multiplicarse.\n\n");
+				printf("Resultado de la multiplicacion:\n");
+                for (int i = 0; i < fil1; i++) {
+                    for (int j = 0; j < col2; j++) {
+                        int mul = 0;
+                        for (int k = 0; k < col1; k++) {
+                            mul += matriz1[i][k] * matriz2[k][j];
+                        }
+                        res[i][j] = mul;
+                        printf("%d ", res[i][j]);
+                    }
+                    printf("\n");
+                }
+            } else {
+                printf("Las matrices no tienen dimensiones validas para la multiplicacion.\n");
+            }
+            
+            break;
+		
+        case 4:
+            
+            if (fil1 == col1) {
+                int SD = 0;
+                for (int i = 0; i < fil1; i++) {
+                    SD += matriz1[i][i];
+                }
+                printf("Suma de la diagonal de la Matriz 1: %d\n", SD);
+            } else {
+                printf("La Matriz 1 no es cuadrada, no se puede calcular la suma de la diagonal.\n");
+            }
+            break;
+		
+        case 5:
+            
+            if (fil1 == col1) {
+                int STS = 0;
+                for (int i = 0; i < fil1; i++) {
+                    for (int j = i + 1; j < col1; j++) {
+                        STS += matriz1[i][j];
+                    }
+                }
+                printf("Suma triangular superior : %d\n", STS);
+            } else {
+                printf("La matriz no es cuadrada, no se puede calcular la suma triangular superior.\n");
+            }
+            break;
+
+        case 6:
+            printf("Programa terminado.\n");
+            return 0;
+
+        default:
+            printf("Opción no valida.\n");
+            return 1;
+    }
+
+    return 0;
+}
